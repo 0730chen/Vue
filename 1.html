@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style>
+
+</style>
+
+<body tabindex="1" class="loadingInProgress" id="contbox">
+
+
+    <div class="btn" id="btn">
+        截取屏幕
+    </div>
+    <div> <img crossOrigin="anonymous" src="2.jpg" alt=""><a id="down1" class="down" href="" download="downImg">截图下载</a></div>
+    <div id="ajax">断剑重铸之日</div>
+    <input type="text" id="in" placeholder="F">
+    <input type="button" name="btn" id="btn2" value="计数">
+    <p id="ajaxContent"></p>
+</body>
+
+
+
+<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Base64/1.0.2/base64.js'></script>
+<script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+<script>
+    var i = 0;
+    $("#btn2").click(function() {
+        i += 1;
+        log(i);
+    })
+    var log = function() {
+
+        console.log.apply(console, arguments)
+    }
+    $('#btn').click(function() {
+        $.ajax({
+            url: 'http://127.0.0.1:3000/',
+            success: function(result) {
+
+                var data = JSON.parse(result)
+                log(data.url)
+                    // log(Object.keys(data))
+
+                var index = Object.keys(data)
+                log(index)
+                window.index = index
+                var clickChage = function(index) {
+
+                    console.log(index[i])
+                    url = index[0]
+                    log(data[url])
+                    log(data[index[i]])
+                    $('#ajaxContent').html(data[index[i]])
+                    i += 1;
+                    if (i > 3) {
+                        i = 0;
+                    }
+                    log(i)
+
+
+
+                }
+                clickChage(index)
+                    // log(index[0])
+
+
+                // var i = 0;
+                // log(index[i])
+
+
+
+                // for(var i = 0; i < 3; i++){
+                //     log(data.index[0])
+                // }
+
+                // for (var i in data) {
+                //     // console.log(i, data[i])
+                //     // $('#ajax').html(data[i])
+
+                // }
+
+                // for (var i = 0; i < 3; i++) {
+
+                //     $('#ajax').html(data.url)
+                // }
+
+
+                // log(data, data.url)
+                // log(JSON.parse(result))
+
+            }
+        });
+    });
+    //以下是截图代码
+    $(function() {
+        $("#btn").click(function() {
+            html2canvas($("#contbox"), {
+                height: $("#contbox").outerHeight(),
+                width: $("#contbox").outerWidth(),
+                onrendered: function(canvas) {
+                        //将canvas画布放大若干倍，然后盛放在较小的容器内，就显得不模糊了
+                        var timestamp = Date.parse(new Date());
+                        //把截取到的图片替换到a标签的路径下载  
+                        $("#down1").attr('href', canvas.toDataURL());
+                        //下载下来的图片名字  
+                        $("#down1").attr('download', timestamp + '.png');
+                        //document.body.appendChild(canvas);  
+                    }
+                    //可以带上宽高截取你所需要的部分内容 
+            });
+        });
+    });
+    // html2canvas(document.body).then(function(canvas) {
+    //     canvas.setAttribute('id', 'canvasImg');
+    //     document.getElementById('imges').appendChild(canvas)
+    // });
+    // let Download = docuemnt.getElementById('Download');
+    // Download.onclick = function() {
+    //     let oCanvas = document.getElementById('canvasImg');
+    //     console.log(oCanvas)
+
+    //     let img = Canvas2Image.saveAsJPEG(oCanvas, true).getAttribute('src')
+    //     console.log(img);
+    //     saveFile(img, 'hlr.png')
+    // }
+    // let saveFile = function(data, filename) {
+    //     let save_link = document.createElementNS('http://www.w3.org/1999/xhtml', 'a');
+    //     save_link.href = data;
+    //     save_link.Download = filename
+    //     var event = document.createEvent('MouseEvents')
+    //     console.log(event)
+    //     event.initMouseEvent('click', true, false, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+    //     save_link.dispatchEvent(event);
+    //     console.log(save_link)
+    // }
+</script>
+
+</html>

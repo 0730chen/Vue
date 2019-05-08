@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>组件的切换</title>
+    <link rel="stylesheet" href="">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<style>
+    .v-enter,
+    .v-leave-to {
+        opacity: 0;
+        transform: translateX(150px);
+    }
+    
+    .v-enter-active,
+    .v-leave-active {
+        transition: all 0.5s ease;
+    }
+</style>
+
+<body>
+    <div id="app">
+        <!-- <a href="" @click.prevent="flag=true">登录</a>
+		<a href="" @click.prevent="flag=false">注册</a>
+		<login v-if="flag"></login>
+		<register v-else="flag"></register>	 -->
+        <!-- Vue提供的component来显示对应组件的名称  是一个占位符，is属性，要展示的名称-->
+        <!-- 组件切换动画，直接使用transition来进行元素动画和元素切换 -->
+        <a href="" @click.prevent="name='login'">登录</a>
+        <a href="" @click.prevent="name='register'">注册</a>
+        <!-- 父组件可以再引用子组件的时候可以通过属性绑定的形式把需要传递的数组，以属性绑定的形式传递 -->
+
+
+        <mylogin></mylogin>
+        <com1 v-bind:parentmsg="msg" :son="son">
+            <com1>
+                <com2></com2>
+                <!-- 通过mode属性来设置组件切换时候的方式 -->
+                <transition mode="out-in">
+                    <component :is="name"></component>
+                </transition>
+    </div>
+    <template id="temp1">
+		<div>
+		<h3>使用com2组件定义模板</h3>	
+		</div>
+	</template>
+</body>
+<script>
+    //登录和注册两个组件的切换 v-if于v-else切换
+    //组件名称是字符串
+    // var com2 = {
+    // 			template:'<h4>com2对象</h4>'
+    // 		}
+
+    Vue.component('com2', {
+        template: '<h4>com2组件</h4>'
+    })
+    var login1 = {
+        template: '<h4>这是一个对象</h4>'
+    }
+
+    // Vue.component('mylogin',login1)
+
+    Vue.component('login', {
+        template: '<h3>登录组件</h3>',
+
+    })
+    Vue.component('register', {
+        template: '<h3>注册组件</h3>',
+
+    })
+    var vm = new Vue({
+        el: '#app',
+        data: {
+            flag: true,
+            name: 'login', //is绑定组件名称
+            msg: '父组件',
+            son: '我就是我'
+        },
+
+        components: {
+            'mylogin': login1,
+
+            //子组件中默认无法访问data中的数据和methods中的方法
+            // 父组件向子组件传值
+            // 需要使用v-bind绑定属性
+            // 在绑定后的需要在props定义名称 ,props是一个集合
+            // 组件中的props数组都是父组件传给子组件的数据
+            // 子组件的data数据不是父组件传递的，而是自己私有的，比如子组件ajax请求的数据可以储存在data中。
+            // data中的数据是可读可写的，props中的数据是可读的无法重新赋值的
+
+            com1: {
+                template: '<h5>这是com1子组件----{{parentmsg}}---{{son}}</h5>',
+                props: ['parentmsg', 'son'],
+                // 		methods:{
+                // 	change(){
+                // 		this.parentmsg = '被修改了'
+                // 	}
+                // },
+
+            },
+
+
+        },
+
+    })
+</script>
+
+</html>

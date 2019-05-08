@@ -1,0 +1,99 @@
+body,html{width: 100%;height: 100%;margin: 0px;padding: 0px;background: rgb(245, 243, 243)}
+a{list-style: none;text-decoration: none;color: rgb(83, 83, 83)}
+p{margin: 0px;padding: 0px;}
+ul li{list-style: none}
+.liststyle{width: 100%;height: 100%;margin: 0px;padding: 0px;}
+.margin-left{margin-left: 14px;}
+.margin-left-more{margin-left: 20px;}
+
+.slide-fade-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-leave-active {
+    transition: all .5s cubic-bezier(1.0, 0.5, 0.8, 1.0);
+  }
+  .slide-fade-enter, .slide-fade-leave-to
+  {
+    transform: translateY(-10px);
+    opacity: 0;
+  }
+  
+.box-move{
+    animation: changeshadow 1s ease-in infinite;
+    /* 其它浏览器兼容性前缀 */
+    -webkit-animation: changeshadow 1.5s linear infinite;
+    -moz-animation: changeshadow 1.5s linear infinite;
+    -ms-animation: changeshadow 1.5s linear infinite;
+    -o-animation: changeshadow 1.5s linear infinite;
+}
+@keyframes changeshadow {
+    0% {
+      text-shadow: 0 0 2px rgb(251, 255, 2);
+    }
+    25% {
+      text-shadow: 0 0 2px rgb(251, 255, 2);
+    }
+    50% {
+      text-shadow: 0 0 15px rgb(251, 255, 2);
+    }
+    100% {
+      text-shadow: 0 0 2px rgb(251, 255, 2);
+    }
+}
+  /* 添加兼容性前缀 */
+@-webkit-keyframes changeshadow {
+    0% {
+      text-shadow: 0 0 2px black;
+    }
+    25% {
+      text-shadow: 0 0 2px black;
+    }
+    50% {
+      text-shadow: 0 0 10px black;
+    }
+    100% {
+      text-shadow: 0 0 2px black;
+    }
+}
+@-moz-keyframes changeshadow {
+    0% {
+      text-shadow: 0 0 2px black;
+    }
+    25% {
+      text-shadow: 0 0 2px black;
+    }
+    50% {
+      text-shadow: 0 0 10px black;
+    }
+    100% {
+      text-shadow: 0 0 2px black;
+    }
+}
+@-ms-keyframes changeshadow {
+    0% {
+      text-shadow: 0 0 2px black;
+    }
+    25% {
+      text-shadow: 0 0 2px black;
+    }
+    50% {
+      text-shadow: 0 0 10px black;
+    }
+    100% {
+      text-shadow: 0 0 2px black;
+    }
+}
+@-o-keyframes changeshadow {
+    0% {
+      text-shadow: 0 0 2px black;
+    }
+    25% {
+      text-shadow: 0 0 2px black;
+    }
+    50% {
+      text-shadow: 0 0 10px black;
+    }
+    100% {
+      text-shadow: 0 0 2px black;
+    }
+}

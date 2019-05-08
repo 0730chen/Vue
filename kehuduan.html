@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>客户端</title>
+    <link rel="stylesheet" href="">
+
+</head>
+<style>
+    .container {
+        width: 500px;
+        padding: 30px;
+        background-color: #105544;
+        margin: 50px auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center
+    }
+    
+    .one {
+        width: 100px;
+        flex: 1;
+    }
+    
+    .two {
+        width: 150px;
+        flex: 1
+    }
+    
+    .three {
+        width: 200px;
+        flex: 1
+    }
+</style>
+
+<body>
+    <div class="container">
+        <div class="one">
+            <h1>ssss</h1>
+            <p>这是第一段</p>
+        </div>
+        <div class="two">
+            <h1>stttt</h1>
+            <p>这是第二段</p>
+        </div>
+        <div class="one">
+            <h1>cccc</h1>
+            <p>这是第三段</p>
+        </div>
+    </div>
+
+</body>
+<script>
+    function showinfo(data) {
+        console.log(data)
+    }
+</script>
+<script src="http://127.0.0.1:3000/getscript?callback=showinfo"></script>
+
+</html>
