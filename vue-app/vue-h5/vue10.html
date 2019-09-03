@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>子组件与父组件的传递关系,发表评论</title>
+	<link rel="stylesheet" href="">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+	<link href="https://cdn.bootcss.com/twitter-bootstrap/4.3.1/css/bootstrap-grid.css" rel="stylesheet">
+</head>
+<body>
+	<div id="app">
+		<!-- 组件化 -->
+		<cmt-box @func="load"></cmt-box>
+		<ul class="list-group">
+			<li class="list-group-item" v-for="item in list" :key="item.id">
+				<span class="badge">评论人:{{item.user}}</span>{{item.content}}
+			</li>
+			
+		</ul>
+	</div>
+	<template id="tmp1">
+		<div>
+			<div class="form-gropu">
+				<label>评论人:</label>
+				<input type="text" class="form-group" v-model="user">
+			</div>
+
+			<div class="form-gropu" >
+				<label>评论内容:</label>
+				<textarea class="form-group" v-model="content"></textarea>
+			</div>
+			<div class="form-gropu">
+				<input type="button" value="发表评论" class="btn btn-primary" @click="add">
+			</div>
+		</div>
+	</template>
+</body>
+<script>
+	var commentBox = {
+		data(){
+			return {
+				user:'',
+				content:'',
+			}
+		},
+		template:"#tmp1",
+		methods:{
+			add(){
+				//分析发表的逻辑，1评论数据存储，存在loaclStroge中 2.组织一个最新的评论对象 3.将2中的评论对象保存在localStrange（只支持字符串） ,JOSN.stringify()
+				// 在保存最新的评论数据之前要localStrage获取之前的数据评论，转换为一个数组对象，是为了防止删除已经存好的字符串JSON.parse() ,将最新的评论push进 JSON.parse()获取不到数据会报错，可以返回一个'[]'字符串形式的空数组
+				// 将最新的评论数组转换为数组字符串,在存入localStronge
+				var comment = {id:this.id, user:this.user,content:this.content}
+                // 从localStrange中获取所有的评论
+				var list = JSON.parse(localStorage.getItem('cmts')||'[]')
+				list.push(comment)
+				//保存最新的数据
+				localStorage.setItem('cmts',JSON.stringify(list))
+				this.user = this.content = ''
+				//直接调用this.load()是不行的 ，子组件想调用父组件方法，则需要父组件向子组件
+				//1.在子组件中获取父组件的方法，并调用this.$emit('方法')
+				this.$emit('func')
+
+			}//发表方法
+		}
+	}
+	var vm  = new Vue({
+		el:'#app',
+		data:{
+			list:[
+            {id:1, user:'sss',content:'上山打老虎'},
+            {id:2, user:'vvv',content:'今晚打老虎'},
+            {id:3, user:'bbb',content:'一起打老虎'},
+			]
+		},
+		//beforCreate(){}数据方法还没初始化
+		created(){
+			this.load()
+		},
+		methods:{
+            load(){
+            	//从localstrange加载评论
+            	//1.读取本地数据
+            	var list = JSON.parse(localStorage.getItem('cmts')||'[]')
+            	this.list = list
+            	//每次需要手动刷新
+
+            }
+		},
+		components:{
+			'cmt-box':commentBox,
+		},
+	})
+</script>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>名称案例</title>
+	<link rel="stylesheet" href="">
+	<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+	<div id="app">
+		<!-- 要监听文本框的数据改变，然后去拼接数据 -->
+		<!-- 1.使用事件绑定keyup实现
+		2.使用watch监听文本框变化
+		3.使用使用computed计算属性实现 -->
+		<input type="text" v-model="firstName" >+
+		<input type="text" v-model="lastName" >=
+		<input type="text" v-model="fineName">
+	</div>
+	
+</body>
+<script>
+	var vm =  new Vue({
+		el:"#app",
+		data:{
+			firstName:'',
+			lastName:'',
+			
+		},
+		methods:{
+			// getfineName(){
+			// 	this.fineName = this.firstName +'-'+ this.lastName
+			
+		},
+		// watch:{
+		// 	//可以监听data数据的改变，然后触发中的function函数
+		// 	'firstName':function(newValue,oldValue){
+		// 		// console.log('监视到了firstName的改变') 第一个新数据，第二个老数据
+		// 		// this.fineName = this.firstName +'-'+ this.lastName
+		// 		this.fineName = newValue +'-'+ this.lastName
+		// 	},
+		// 	'lastName':function(newValue){
+		// 		this.fineName = this.firstName+'-'+newValue
+		// 	}
+		// }
+		computed:{
+			//可以定义一些属性，这些属性叫做计算属性，本质是一个方法，在使用计算属性时，使用它们的名称来使用计算属性，而不是当做方法计算
+			'fineName':function(){
+				return this.firstName +'-'+this.lastName
+			}
+		}
+	})
+</script>
+</html>

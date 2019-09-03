@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Title Page</title>
+
+    <!-- Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.3/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+</head>
+<style>
+    #newTodo {
+        position: relative;
+        margin: 0 auto;
+        left: 27%;
+        border: 5px solid salmon;
+        border-radius: 50px
+    }
+    
+    #addTodo {
+        position: absolute;
+        right: 14%;
+        border: 5px solid black;
+        border-radius: 50px
+    }
+    
+    #deleteTodo {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-200px)
+    }
+    
+    #deleteTODO {
+        position: absolute;
+        margin: 0 auto;
+        top: 50%;
+        left: 50%;
+        transform: translateY(-180px)
+    }
+    
+    ul {
+        position: absolute;
+        width: 88%;
+        margin: 0 auto;
+        border: 1px solid peru;
+        bottom: 50%;
+        right: 6%;
+    }
+    
+    .active {
+        background: red;
+    }
+</style>
+
+<body>
+    <h1 class="text-center">
+        TODO
+    </h1>
+    <input type="text" id="newTodo">
+    <input type="button" value="add" id="addTodo" class="">
+    <input type="button" value="delete" id="deleteTodo">
+    <input type="text" placeholder="要删除的数据" id="deleteTODO">
+    <ul id="todolist"></ul>
+
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</body>
+<script>
+    function getAjax(url, data) {
+        return new Promise(function(resolve, reject) {
+            var xht = new XMLHttpRequest()
+            xht.open('post', url)
+            xht.setRequestHeader("Content-type", "application")
+            xht.send(data)
+
+        })
+    }
+    var log = function() {
+        console.log.apply(console.log(), arguments)
+    }
+    $('#addTodo').click(function() {
+        var timestamp = Date.parse(new Date());
+        log(timestamp)
+
+        var name = $("#newTodo").val()
+        var strange = window.localStorage
+        strange.setItem(name, timestamp)
+
+        $('#todolist').append(`
+           
+             <li class="liList">${name}               ${timestamp}</li>
+             <input type="button" value="完成" class="button">
+           `)
+            //TODO 将input的中的值和生成的时间变成JSON数据格式
+            // var todoJson = {
+            //     name
+            //     // time: timestamp,
+            // }
+            // console.log(todoJson)
+        var data = name
+        log(data)
+            // log(todoJson)
+        getAjax('http://127.0.0.1:3000/add', data)
+            // $("#deleteTodo").click(function() {
+            //         console.log("删除事件")
+            //         var det = $("#deleteTODO").val()
+            //         console.log(det)
+            //     })
+            // var xht = new XMLHttpRequest()
+            // xht.open('get',url)
+            // xht.send()
+    })
+    $("#deleteTodo").click(function() {
+        console.log("删除事件")
+        var det = $("#deleteTODO").val()
+        console.log(det)
+        var deleteData = det
+            // log(deleteData)
+        getAjax('http://127.0.0.1:3000/delete', deleteData)
+    })
+    $("#todolist").on("click", ".button", function(event) {
+        console.log($(this).prev())
+        $(this).prev("li").toggleClass('active')
+
+    })
+</script>
+
+</html>

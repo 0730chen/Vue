@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+
+<body>
+    <ul>
+        <li><a href="/home"> home
+            </a>
+        </li>
+        <li><a href="/body"> body</a></li>
+    </ul>
+    <div id="view">13</div>
+</body>
+
+</html>
+<script>
+    console.log(location.pathname)
+    console.log(location.hash)
+    window.addEventListener('DOMContentLoaded', onload)
+    window.addEventListener('popstate', onPopState)
+        // window.addEventListener('hashchange', onHashchange)  监听hash路由
+    var routerView = null
+
+    function onload() {
+        routerView = document.querySelector('#view')
+            // onHashchange() hasn路由
+        onPopState()
+        var linkList = document.querySelectorAll('a[href]')
+        console.log(linkList)
+        linkList.forEach(el => el.addEventListener('click', function(e) {
+            e.preventDefault();
+            history.pushState(null, '', el.getAttribute('href'))
+            onPopState()
+        }));
+    }
+
+    function onPopState() {
+        // location.hash是hash路由，判断实现方式
+        //location.pathname 是history实现方式
+        console.log(location.pathname)
+        switch (location.pathname) {
+            case '/home':
+                routerView.innerHTML = 'home'
+                return
+            case '/body':
+                routerView.innerHTML = 'body'
+                return
+            default:
+                return
+        }
+    }
+</script>

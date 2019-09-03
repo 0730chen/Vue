@@ -6,7 +6,7 @@
 //     this.name = name
 
 // }
-
+//继承实现
 // function(children, parsent) {
 //     function F() {};
 //     F.prototypes = parsent.prototypes
@@ -42,3 +42,5 @@ MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
 
     })
 })
+var m = require('./es6')
+console.log(m)

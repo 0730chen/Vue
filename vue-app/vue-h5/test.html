@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Vue实现双向绑定</title>
+    <link rel="stylesheet" href="">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id = 'app'>
+        <input type="text" v-model="n1">
+        <select v-model="opt">
+            <option value="+">+</option>
+            <option value="-">-</option>
+            <option value="*">*</option>
+            <option value="/">/</option>
+        </select>
+        <input type="text" v-model="n2">
+        <input type="button" value="=" @click="click">
+        <input type="text" v-model="res">
+    </div>
+    
+</body>
+<script type="text/javascript">
+ var vm = new Vue({
+ 
+   el: "#app",
+   data:{
+    n1:0,
+    opt:'+',
+    n2:0,
+    res:0
+   },
+   methods:{
+    click(){
+            switch (this.opt) {
+                case '+':
+                    this.res = parseInt(this.n1)+parseInt(this.n2)
+                    // statements_1
+                    break;
+                case '-':
+                    this.res = parseInt(this.n1)-parseInt(this.n2)
+                    break;
+                case '*':
+                    this.res = parseInt(this.n1)*parseInt(this.n2)
+                    break;
+                case '/':
+                    this.res = parseInt(this.n1)/parseInt(this.n2)
+                    break;
+            }
+    }
+   }
+ 
+ })
+</script>
+</html>

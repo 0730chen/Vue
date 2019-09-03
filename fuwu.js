@@ -1,8 +1,11 @@
 //通过两个按钮，实现将页面输入的数据加入数据库中，输入删除的数据从数据库中删除
-
+var GetTest = require('./mongodb')
 var http = require('http')
 var querystring = require('querystring')
 var util = require('util')
+var m = require('./es6')
+    // console.log(m.m())
+    // console.log(GetTest.GetTest())
 
 
 const MongoClient = require('mongodb').MongoClient
@@ -19,46 +22,50 @@ http.createServer(function(req, res) {
         var todoList = ''
 
         req.on('data', function(chunk) {
-                console.log('这个是chunk' + chunk)
-                todoList += chunk;
-                console.log('这个是插入的数据' + todoList)
-                MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
-                    console.log(todoList)
-                    if (err) {
-                        console.log(err)
-                    }
-                    console.log("连接成功")
-                    const db = client.db(dbName)
-                    const col = db.collection('db')
-                        // col.insert(todoList)
-                    console.log('这是外面的todolist数据')
-                    console.log(todoList)
-                    data = {
-                        value: todoList
-                    }
-                    console.log('下面是要插入的数据')
-                    console.log(data)
-                    col.insert(data, function(err, callback) {
-                        if (err) {
-                            console.log(err)
-                        } else {
-                            console.log("成功")
-                        }
+            console.log('这个是chunk' + chunk)
+            todoList += chunk;
+            console.log('这个是插入的数据' + todoList)
+            var data = {
+                value: todoList
+            }
+            GetTest.GetTest(todoList, data, 1)
+                // MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
+                //     console.log(todoList)
+                //     if (err) {
+                //         console.log(err)
+                //     }
+                //     console.log("连接成功")
+                //     const db = client.db(dbName)
+                //     const col = db.collection('db')
+                //         // col.insert(todoList)
+                //     console.log('这是外面的todolist数据')
+                //     console.log(todoList)
+                //     data = {
+                //         value: todoList
+                //     }
+                //     console.log('下面是要插入的数据')
+                //     console.log(data)
+                //     col.insert(data, function(err, callback) {
+                //         if (err) {
+                //             console.log(err)
+                //         } else {
+                //             console.log("成功")
+                //         }
 
-                    })
-                    col.find().toArray((err, res) => {
-                        console.log(res)
+            //     })
+            //     col.find().toArray((err, res) => {
+            //         console.log(res)
 
-                    })
-                })
-
-                console.log(todoList)
-            })
-            // req.on('end', function() {
-            //     console.log('end里面的输出')
-            //     todoList = querystring.parse(todoList)
-            //     res.end(util.inspect(todoList))
+            //     })
             // })
+
+            console.log(todoList)
+        })
+        req.on('end', function() {
+            console.log('end里面的输出')
+            todoList = querystring.parse(todoList)
+            res.end(util.inspect(todoList))
+        })
     } else {
         console.log("失败")
     }
@@ -71,33 +78,40 @@ http.createServer(function(req, res) {
 
             todoList += chunk;
             console.log(todoList)
-            MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
-                if (err) {
-                    console.log(err)
-                }
-                console.log("连接成功")
-                const db = client.db(dbName)
-                const col = db.collection('db')
-                    // col.insert(todoList)
-                data = {
-                    value: todoList
-                }
-                console.log(data)
-                col.remove(data, function(err, callback) {
-                    if (err) {
-                        console.log(err)
-                    } else {
-                        console.log("成功")
-                    }
-
-                })
-                col.find().toArray((err, res) => {
-                    console.log(res)
-
-                })
-            })
+            var data = {
+                value: todoList
+            }
+            GetTest.GetTest(todoList, data, 2)
 
             console.log(todoList)
+
+            // MongoClient.connect(url, { useNewUrlParser: true }, function(err, client) {
+            //     if (err) {
+            //         console.log(err)
+            //     }
+            //     console.log("连接成功")
+            //     const db = client.db(dbName)
+            //     const col = db.collection('db')
+            //         // col.insert(todoList)
+            //     data = {
+            //         value: todoList
+            //     }
+            //     console.log(data)
+            //     col.remove(data, function(err, callback) {
+            //         if (err) {
+            //             console.log(err)
+            //         } else {
+            //             console.log("成功")
+            //         }
+
+            //     })
+            //     col.find().toArray((err, res) => {
+            //         console.log(res)
+
+            //     })
+            // })
+
+
         })
     }
     data = {

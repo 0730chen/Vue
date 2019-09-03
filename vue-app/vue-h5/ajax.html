@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>html2canvas example</title>
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/Base64/1.0.2/base64.js'></script>
+    <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
+
+
+</head>
+<style>
+    /* canvas{
+     weight:100%;
+     widows: 100%;
+     background:100% 100%;
+     
+ } */
+    
+    #view {
+        background: url(2.jpg) center center
+    }
+</style>
+<script type="text/javascript">
+    // //手写ajax
+    // var a = new XMLHttpRequest();
+    // 创建对象
+    // a.open('get', 'url') //a.open('post', url)
+    //     // post请求需要设置内容 参数          请求方式
+    // a.setRequestHeader("Content-type", application)
+    // a.onreadystatechange = function() {
+    //     if (a.readyState === 4) {
+    //         console.log(a.responseText)
+    //     }
+    // };
+    // a.send();
+    // Promise创建ajax请求
+
+    // function getJson(url) {
+    //     return Promise(function(resolve, reject) {
+    //         const xht = new XMLHttpRequest()
+    //         xht.open('get', url)
+    //         xht.send()
+    //         var ok = 200
+    //         if (xht.status === 200) {
+    //             resolve('成功响应')
+    //         } else {
+    //             reject('响应失败')
+    //         }
+
+    //     })
+    // }
+    // var p = getJson(url)
+    // p.then(function() {
+    //     成功响应后执行
+    // }).catch(function() {
+    //     失败响应后执行
+    // })
+
+
+    function takeScreenshot() {
+        console.log('test');
+        html2canvas(document.getElementById('view'), {
+            height: $("#view").outerHeight(),
+            width: $("#view").outerWidth(),
+            useCORS: true,
+            onrendered: function(canvas) {
+                document.body.appendChild(canvas);
+                var type = 'png'
+                var timestamp = Date.parse(new Date());
+                console.log(canvas.toDataURL(type))
+                    //把截取到的图片替换到a标签的路径下载  
+                $("#down1").attr('href', canvas.toDataURL(type));
+                //下载下来的图片名字  
+                $("#down1").attr('download', timestamp + '.png');
+
+
+            },
+            // width: 300,
+            // height: 300
+        });
+    }
+</script>
+
+<body>
+    <div id="view" style="background:url(2.jpg) 50%; width:50%; height:50%; position: absolute;">
+        <input type="button" value="截图" onclick="takeScreenshot()">
+        <div><a id="down1" class="down" href="" download="downImg">截图下载</a></div>
+    </div>
+</body>
+
+</html>

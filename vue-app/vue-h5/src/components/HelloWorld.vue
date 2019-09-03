@@ -10,6 +10,7 @@
     </div>
   </div>
     <input v-model="msg"><span id="name">{{msg}}</span>
+    <p>{{msg}}</p>
   </div>
 </template>
 

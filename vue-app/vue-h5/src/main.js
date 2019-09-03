@@ -9,15 +9,20 @@ import router from './router'
 import $ from 'jquery'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import 'bootstrap/dist/js/bootstrap.min.js'
+
 // eslint-disable-next-line no-unused-vars
 
 Vue.config.productionTip = false
+    // console.log(navBar)
     // eslint-disable-next-line no-unused-vars
 
 /* eslint-disable no-new */
 new Vue({
     el: '#app',
     router,
-    components: { App },
+    // eslint-disable-next-line comma-dangle
+    components: {
+        App
+    },
     template: '<App/>'
 })
