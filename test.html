@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -7,8 +8,9 @@
     <link rel="stylesheet" href="">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
+
 <body>
-    <div id = 'app'>
+    <div id='app'>
         <input type="text" v-model="n1">
         <select v-model="opt">
             <option value="+">+</option>
@@ -19,39 +21,87 @@
         <input type="text" v-model="n2">
         <input type="button" value="=" @click="click">
         <input type="text" v-model="res">
-    </div>
-    
+        <nav class="flyout-nav">
+            <ul>
+                <li>
+                    <a href="#"><span class="label">File</span></a>
+                    <ul>
+                        <li>
+                            <a href="#">
+                                <span class="label">New Tab</span>
+                                <span class="shortcut">⌘T</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#">
+                                <span class="label">New Window</span>
+                                <span class="shortcut">⌘N</span>
+                            </a>
+                        </li>
+                        <li class="separator"></li>
+                        <li class="has-children">
+                            <a href="#">
+                                <span class="label">Share...</span>
+                            </a>
+                            <ul>
+                                <li>
+                                    <a href="#">
+                                        <span class="label">✉️ Email</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">
+                                        <span class="label">💬 Messages</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+
 </body>
 <script type="text/javascript">
- var vm = new Vue({
- 
-   el: "#app",
-   data:{
-    n1:0,
-    opt:'+',
-    n2:0,
-    res:0
-   },
-   methods:{
-    click(){
-            switch (this.opt) {
-                case '+':
-                    this.res = parseInt(this.n1)+parseInt(this.n2)
-                    // statements_1
-                    break;
-                case '-':
-                    this.res = parseInt(this.n1)-parseInt(this.n2)
-                    break;
-                case '*':
-                    this.res = parseInt(this.n1)*parseInt(this.n2)
-                    break;
-                case '/':
-                    this.res = parseInt(this.n1)/parseInt(this.n2)
-                    break;
+    var vm = new Vue({
+
+        el: "#app",
+        data: {
+            n1: 0,
+            opt: '+',
+            n2: 0,
+            res: 0
+        },
+        methods: {
+            click() {
+                switch (this.opt) {
+                    case '+':
+                        this.res = parseInt(this.n1) + parseInt(this.n2)
+                            // statements_1
+                        break;
+                    case '-':
+                        this.res = parseInt(this.n1) - parseInt(this.n2)
+                        break;
+                    case '*':
+                        this.res = parseInt(this.n1) * parseInt(this.n2)
+                        break;
+                    case '/':
+                        this.res = parseInt(this.n1) / parseInt(this.n2)
+                        break;
+                }
             }
-    }
-   }
- 
- })
+        }
+
+    })
 </script>
+
 </html>
+<style>
+    ul li {
+        margin: 0;
+        padding: 0;
+        position: absolute;
+        display: none;
+        list-style-type: none;
+    }
+</style>

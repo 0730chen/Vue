@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<style type="text/css">
+    ul li {
+        position: relative;
+        margin: 0;
+        padding: 0;
+        list-style-type: none;
+        left: 0;
+    }
+    
+    .second {
+        display: none;
+        position: absolute;
+    }
+</style>
+
+<body>
+    <ul>
+        <li class="first">首页
+            <ul class="second">
+                <li>我的内容</li>
+            </ul>
+        </li>
+        <li class="first">导航
+            <ul class="second">
+                <li>A</li>
+                <li>B</li>
+                <li>C</li>
+            </ul>
+        </li>
+        <li class="first">客户端
+            <ul class="second">
+                <li>客户</li>
+                <li>开发者</li>
+            </ul>
+        </li>
+    </ul>
+</body>
+<script>
+    var falg = document.getElementsByClassName('first')
+    var second = document.getElementsByClassName('second')
+    falg[0].addEventListener('mouseover', function() {
+        second[1].style.display = 'block'
+    })
+</script>
+
+</html>
