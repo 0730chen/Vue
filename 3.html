@@ -2,15 +2,13 @@
 <html>
 
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>html2canvas example</title>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/Base64/1.0.2/base64.js'></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Base64/1.0.2/base64.js"></script>
     <script src="https://cdn.bootcss.com/html2canvas/0.4.1/html2canvas.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js"></script>
-
-
 </head>
 <style>
     .bho-bg {
@@ -28,46 +26,43 @@
 </style>
 
 <body>
+    <H5>SSSS</H5>
+    <DIV>
+        HAHA
+    </DIV>
     <div class="pho-bg">
-        <img src="2.jpg" alt="" class="man" id="man-1">
+        <img src="2.jpg" alt="" class="man" id="man-1" />
         <p>ssssss</p>
         <div id="abs"></div>
-        <input type="button" class="btn" value="截图">
-
+        <input type="button" class="btn" value="截图" />
     </div>
-    <div class="photo">
-
-    </div>
+    <div class="photo"></div>
     <canvas id="myCanvas" width="750" height="1180"></canvas>
-    <img src="2.jpg" alt="" id="bg1">
-    <img src="3.jpg" id="btn1" alt="">
-
+    <img src="2.jpg" alt="" id="bg1" />
+    <img src="3.jpg" id="btn1" alt="" />
 </body>
 <script>
-    $(".btn").append(
-        "<input class='btn' value='nihao'>"
-    )
-    $('.btn').click(function() {
-
-        $('.pho-bg').hide();
-        var man = document.getElementById("man-1")
-        var canvas = document.getElementById("myCanvas")
-        var canvasBg = document.getElementById("bg1")
-        ctx = canvas.getContext('2d');
+    $(".btn").append("<input class='btn' value='nihao'>");
+    $(".btn").click(function() {
+        $(".pho-bg").hide();
+        var man = document.getElementById("man-1");
+        var canvas = document.getElementById("myCanvas");
+        var canvasBg = document.getElementById("bg1");
+        ctx = canvas.getContext("2d");
         canvas.width = 1000;
         canvas.height = 1200;
 
-        var patBg = ctx.createPattern(canvasBg, "repeat")
+        var patBg = ctx.createPattern(canvasBg, "repeat");
         ctx.rect(0, 0, 750, 1180);
         ctx.fillStyle = patBg;
         ctx.fill();
         ctx.drawImage(man, 0, 0, 341, 474);
         var newImg = new Image();
         var timestamp = new Date().getTime();
-        newImg.setAttribute('crossOrigin', 'Anonymous')
-        newImg.src = canvas.toDataURL("") + '?' + timestamp
-        $('.photo').append(newImg)
-    })
+        newImg.setAttribute("crossOrigin", "Anonymous");
+        newImg.src = canvas.toDataURL("") + "?" + timestamp;
+        $(".photo").append(newImg);
+    });
 </script>
 
 </html>
